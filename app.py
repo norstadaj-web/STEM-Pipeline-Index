@@ -19,24 +19,48 @@ st.info(
 )
 st.markdown("---")
 
-# Data Visualization Hub
-st.header("📈 Data Visualization Hub")
-st.write("The interactive chart below displays historical NSF data for engineering doctorates awarded in the U.S. by gender.")
+# Layout columns for side-by-side presentation
+col1, col2 = st.columns(2)
 
-# Load the data file we created
-try:
-    df = pd.read_csv("nsf_data.csv")
+with col1:
+    st.header("📈 Data Visualization Hub")
+    st.write("Historical NSF data for engineering doctorates awarded in the U.S. by gender.")
     
-    # Pivot data so Streamlit can chart it easily
-    chart_data = df.pivot(index='Year', columns='Gender', values='Doctorates')
-    
-    # Render the interactive chart
-    st.line_chart(chart_data)
-    st.caption("Figure 1: National Science Foundation Survey of Earned Doctorates (Engineering Subfields).")
-    
-except Exception as e:
-    st.error("Data pipeline loading error. Please check configuration files.")
+    try:
+        df = pd.read_csv("nsf_data.csv")
+        chart_data = df.pivot(index='Year', columns='Gender', values='Doctorates')
+        st.line_chart(chart_data)
+        st.caption("Figure 1: National Science Foundation Survey of Earned Doctorates (Engineering Subfields).")
+    except Exception as e:
+        st.error("Data pipeline loading error.")
 
+with col2:
+    st.header("🤖 Predictive Attrition Calculator")
+    st.write("Evaluate institutional risk metrics based on historical attrition indicators.")
+    
+    # User Inputs for the simulation
+    major = st.selectbox("Select STEM Discipline:", ["Computer Science", "Mechanical Engineering", "Biomedical Engineering"])
+    mentors = st.slider("Number of Female Faculty/Mentors in Department:", 0, 10, 2)
+    workload = st.radio("Administrative / 'Office Housework' Load Assigned to Female Staff:", ["Disproportionately High", "Equal / Fair"])
+    
+    # Algorithmic calculation mimicking a risk model
+    base_risk = 75 if major == "Computer Science" else 60
+    mentor_reduction = mentors * 4
+    housework_penalty = 15 if workload == "Disproportionately High" else 0
+    
+    final_risk_score = max(5, min(95, base_risk - mentor_reduction + housework_penalty))
+    
+    # Display the result professionally
+    st.metric(label="Predicted Female Attrition Risk Score", value=f"{final_risk_score}%")
+    
+    if final_risk_score > 60:
+        st.error("⚠️ High Attrition Risk: Immediate institutional intervention and mentorship support required.")
+    elif 40 <= final_risk_score <= 60:
+        st.warning("⚠️ Moderate Attrition Risk: Targeted support systems recommended.")
+    else:
+        st.success("✅ Low Attrition Risk: Environment shows strong retention indicators.")
+
+st.markdown("---")
 # Sidebar Info
 st.sidebar.header("About the Project")
 st.sidebar.write("Developed by an aspiring Undergraduate Researcher.")
