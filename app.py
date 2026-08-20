@@ -19,7 +19,7 @@ st.info(
 )
 st.markdown("---")
 
-# Layout columns for side-by-side presentation
+# Layout columns for side-by-side presentation (Chart + Calculator)
 col1, col2 = st.columns(2)
 
 with col1:
@@ -59,6 +59,56 @@ with col2:
         st.warning("⚠️ Moderate Attrition Risk: Targeted support systems recommended.")
     else:
         st.success("✅ Low Attrition Risk: Environment shows strong retention indicators.")
+
+# NEW SECTION: TESTIMONIAL CARDS
+st.markdown("---")
+st.header("💬 Voices from the Field: Qualitative Data")
+st.write("Anonymized testimonials and case studies collected from women currently navigating academic and professional STEM pipelines.")
+
+# Create 3 columns for a clean card-based layout
+t_col1, t_col2, t_col3 = st.columns(3)
+
+with t_col1:
+    st.markdown(
+        """
+        <div style="background-color: #f0f2f6; padding: 20px; border-radius: 10px; border-left: 5px solid #004c97; min-height: 250px;">
+            <p style="font-style: italic; color: #333333;">
+                "In my lab group, I noticed I was consistently the one assigned to format the slides and organize the clean-up schedule, while my male peers focused entirely on coding the simulator."
+            </p>
+            <strong style="color: #004c97;">— Undergraduate Student</strong><br>
+            <small style="color: #666666;">Computer Science Major</small>
+        </div>
+        """, 
+        unsafe_html=True
+    )
+
+with t_col2:
+    st.markdown(
+        """
+        <div style="background-color: #f0f2f6; padding: 20px; border-radius: 10px; border-left: 5px solid #004c97; min-height: 250px;">
+            <p style="font-style: italic; color: #333333;">
+                "The isolation is the quietest hurdle. Walking into a seminar room of 60 people and realizing you are one of only three women changes the way you speak up or ask questions."
+            </p>
+            <strong style="color: #004c97;">— Graduate Researcher</strong><br>
+            <small style="color: #666666;">Aerospace Engineering</small>
+        </div>
+        """, 
+        unsafe_html=True
+    )
+
+with t_col3:
+    st.markdown(
+        """
+        <div style="background-color: #f0f2f6; padding: 20px; border-radius: 10px; border-left: 5px solid #004c97; min-height: 250px;">
+            <p style="font-style: italic; color: #333333;">
+                "When I started using standard-issue industrial safety vests and gloves in the field, they were so oversized it became a genuine tripping and dexterity hazard."
+            </p>
+            <strong style="color: #004c97;">— Civil Engineer</strong><br>
+            <small style="color: #666666;">4 Years Industry Experience</small>
+        </div>
+        """, 
+        unsafe_html=True
+    )
 
 st.markdown("---")
 # Sidebar Info
